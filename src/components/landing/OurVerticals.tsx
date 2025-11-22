@@ -197,12 +197,13 @@ const VerticalCard = ({
 
 const CornerIcons = () => (
   <>
-    <Icon className="absolute h-5 w-5 -top-3 -left-3 text-white drop-shadow" />
-    <Icon className="absolute h-5 w-5 -bottom-3 -left-3 text-white drop-shadow" />
-    <Icon className="absolute h-5 w-5 -top-3 -right-3 text-white drop-shadow" />
-    <Icon className="absolute h-5 w-5 -bottom-3 -right-3 text-white drop-shadow" />
+    <Icon className="absolute h-6 w-6 -top-3 -left-3 text-black drop-shadow-[0_0_4px_rgba(255,255,255,0.8)] z-40" />
+    <Icon className="absolute h-6 w-6 -bottom-3 -left-3 text-black drop-shadow-[0_0_4px_rgba(255,255,255,0.8)] z-40" />
+    <Icon className="absolute h-6 w-6 -top-3 -right-3 text-black drop-shadow-[0_0_4px_rgba(255,255,255,0.8)] z-40" />
+    <Icon className="absolute h-6 w-6 -bottom-3 -right-3 text-black drop-shadow-[0_0_4px_rgba(255,255,255,0.8)] z-40" />
   </>
 );
+
 
 const Icon = ({ className, ...rest }: any) => (
   <svg
