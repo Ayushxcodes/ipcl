@@ -1,12 +1,13 @@
 "use client";
+
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect";
 import Image from "next/image";
 
-// --------------------------------------
+// -----------------------------------------------------------
 // MAIN SECTION
-// --------------------------------------
+// -----------------------------------------------------------
 
 export default function OurVerticalsSection() {
   return (
@@ -43,7 +44,7 @@ export default function OurVerticalsSection() {
           }
         />
 
-        {/* 2. Election & Campaign Management */}
+        {/* 2. Election Management */}
         <VerticalCard
           title="Election & Campaign Management"
           image="/vertcial2.png"
@@ -71,7 +72,7 @@ export default function OurVerticalsSection() {
           }
         />
 
-        {/* 3. Data Intelligence & Analytics */}
+        {/* 3. Data Intelligence */}
         <VerticalCard
           title="Data Intelligence & Analytics"
           image="/vertcial3.png"
@@ -80,7 +81,7 @@ export default function OurVerticalsSection() {
               <p>
                 We use behavioural data, surveys, and sentiment analysis to
                 build predictive models for policy outcomes and campaign
-                optimization.
+                optimisation.
               </p>
               <p className="mt-4 text-sm opacity-80">
                 Numbers with a heartbeat.
@@ -107,7 +108,7 @@ export default function OurVerticalsSection() {
           }
         />
 
-        {/* 5. Strategic Communication Design */}
+        {/* 5. Strategic Communication */}
         <VerticalCard
           title="Strategic Communication Design"
           image="/vertical5.png"
@@ -129,9 +130,9 @@ export default function OurVerticalsSection() {
   );
 }
 
-// --------------------------------------
-// CARD COMPONENT (WITH HOVER REVEAL)
-// --------------------------------------
+// -----------------------------------------------------------
+// CARD COMPONENT (Hover on desktop, Tap-to-Reveal on mobile)
+// -----------------------------------------------------------
 
 const VerticalCard = ({
   title,
@@ -142,36 +143,50 @@ const VerticalCard = ({
   image: string;
   content: React.ReactNode;
 }) => {
-  const [hovered, setHovered] = React.useState(false);
+  const [active, setActive] = React.useState(false);
+  const [isTouch, setIsTouch] = React.useState(false);
+
+  // Detect mobile/touch screen
+  React.useEffect(() => {
+    setIsTouch("ontouchstart" in window);
+  }, []);
+
+  const handleClick = () => {
+    if (isTouch) setActive((prev) => !prev);
+  };
 
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="relative border border-black/20 dark:border-white/20 h-[28rem] group/canvas-card overflow-hidden"
+      onMouseEnter={() => !isTouch && setActive(true)}
+      onMouseLeave={() => !isTouch && setActive(false)}
+      onClick={handleClick}
+      className="relative border border-black/20 dark:border-white/20 h-[28rem] group/canvas-card overflow-hidden cursor-pointer rounded-xl"
     >
       {/* Corner Icons */}
       <CornerIcons />
 
-      {/* Background Image */}
+      {/* Image */}
       <Image
         src={image}
         alt={title}
         fill
-        className="object-cover transition-all duration-500 group-hover/canvas-card:scale-110"
+        className={`object-cover transition-all duration-500 ${
+          active ? "scale-110 brightness-[0.3]" : ""
+        }`}
       />
 
-      {/* Hover Reveal Animation */}
+      {/* Reveal Animation */}
       <AnimatePresence>
-        {hovered && (
+        {active && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             className="absolute inset-0 z-20"
           >
             <CanvasRevealEffect
               animationSpeed={3}
-              containerClassName="bg-black/90"
+              containerClassName="bg-black/80"
               colors={[
                 [236, 72, 153],
                 [232, 121, 249],
@@ -182,28 +197,35 @@ const VerticalCard = ({
         )}
       </AnimatePresence>
 
-      {/* Content */}
-      <div className="absolute inset-0 z-30 flex flex-col items-start justify-center p-8 text-white opacity-0 group-hover/canvas-card:opacity-100 transition-all duration-300 translate-y-4 group-hover/canvas-card:translate-y-0">
+      {/* Text Content */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{
+          opacity: active ? 1 : 0,
+          y: active ? 0 : 20,
+        }}
+        transition={{ duration: 0.4 }}
+        className="absolute inset-0 z-30 flex flex-col items-start justify-center p-8 text-white pointer-events-none"
+      >
         <h3 className="text-2xl font-bold mb-4">{title}</h3>
         <div className="text-sm leading-relaxed">{content}</div>
-      </div>
+      </motion.div>
     </div>
   );
 };
 
-// --------------------------------------
-// CORNER PLUS ICONS
-// --------------------------------------
+// -----------------------------------------------------------
+// CORNER ICONS
+// -----------------------------------------------------------
 
 const CornerIcons = () => (
   <>
-    <Icon className="absolute h-6 w-6 -top-3 -left-3 text-black drop-shadow-[0_0_4px_rgba(255,255,255,0.8)] z-40" />
-    <Icon className="absolute h-6 w-6 -bottom-3 -left-3 text-black drop-shadow-[0_0_4px_rgba(255,255,255,0.8)] z-40" />
-    <Icon className="absolute h-6 w-6 -top-3 -right-3 text-black drop-shadow-[0_0_4px_rgba(255,255,255,0.8)] z-40" />
-    <Icon className="absolute h-6 w-6 -bottom-3 -right-3 text-black drop-shadow-[0_0_4px_rgba(255,255,255,0.8)] z-40" />
+    <Icon className="absolute h-6 w-6 -top-3 -left-3 text-white drop-shadow-lg z-40" />
+    <Icon className="absolute h-6 w-6 -bottom-3 -left-3 text-white drop-shadow-lg z-40" />
+    <Icon className="absolute h-6 w-6 -top-3 -right-3 text-white drop-shadow-lg z-40" />
+    <Icon className="absolute h-6 w-6 -bottom-3 -right-3 text-white drop-shadow-lg z-40" />
   </>
 );
-
 
 const Icon = ({ className, ...rest }: any) => (
   <svg
