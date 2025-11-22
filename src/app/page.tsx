@@ -1,5 +1,6 @@
 import AboutUs from '@/components/landing/AboutUs'
 import HeroSection from '@/components/landing/HeroSection'
+import Verticals from '@/components/landing/OurVerticals'
 import React from 'react'
 
 const Homepage = () => {
@@ -7,6 +8,7 @@ const Homepage = () => {
     <div>
       <HeroSection/>
       <AboutUs/>
+      <Verticals/>
     </div>
   )
 }

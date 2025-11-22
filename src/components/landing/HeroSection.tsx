@@ -13,7 +13,7 @@ export default function HeroSection() {
       </div>
 
       {/* Outer Card (HEIGHT REDUCED) */}
-      <div className="relative z-10 w-[72%] max-w-7xl mx-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl py-16 md:py-20 px-10">
+      <div className="relative z-10 w-[72%] max-w-7xl mx-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl py-16 md:py-5 px-10">
         {/* Top Logo */}
         <div className="flex justify-between items-center text-sm text-white/70 mb-16">
           <div className="font-semibold tracking-wide">IPCL®</div>
