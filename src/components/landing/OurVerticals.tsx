@@ -16,8 +16,18 @@ export default function OurVerticalsSection() {
         Our Verticals
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
-        {/* 1. Policy Research */}
+      <div
+        className="
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          lg:grid-cols-3
+          gap-10
+          max-w-7xl
+          mx-auto
+        "
+      >
+        {/* -------------------- ROW 1 (always 3 on desktop) -------------------- */}
         <VerticalCard
           title="Policy Research & Advisory"
           image="/vertical1.png"
@@ -31,7 +41,6 @@ export default function OurVerticalsSection() {
               <p className="mt-4 text-sm opacity-80">
                 Policy with purpose. Governance with clarity.
               </p>
-
               <ul className="mt-6 space-y-1 text-sm opacity-90">
                 <li>A. Digital Infrastructure</li>
                 <li>B. Media and Entertainment</li>
@@ -44,7 +53,6 @@ export default function OurVerticalsSection() {
           }
         />
 
-        {/* 2. Election Management */}
         <VerticalCard
           title="Election & Campaign Management"
           image="/vertcial2.png"
@@ -58,7 +66,6 @@ export default function OurVerticalsSection() {
               <p className="mt-4 text-sm opacity-80">
                 Emotion meets precision. Strategy meets trust.
               </p>
-
               <ul className="mt-6 space-y-1 text-sm opacity-90">
                 <li>A. Candidate Profiling</li>
                 <li>B. Surveys</li>
@@ -72,7 +79,6 @@ export default function OurVerticalsSection() {
           }
         />
 
-        {/* 3. Data Intelligence */}
         <VerticalCard
           title="Data Intelligence & Analytics"
           image="/vertcial3.png"
@@ -83,55 +89,62 @@ export default function OurVerticalsSection() {
                 build predictive models for policy outcomes and campaign
                 optimisation.
               </p>
-              <p className="mt-4 text-sm opacity-80">
-                Numbers with a heartbeat.
-              </p>
+              <p className="mt-4 text-sm opacity-80">Numbers with a heartbeat.</p>
             </>
           }
         />
 
-        {/* 4. Government Project Management */}
-        <VerticalCard
-          title="Government Project Management"
-          image="/vertical4.png"
-          content={
-            <>
-              <p>
-                We partner with ministries and agencies to manage and execute
-                projects that deliver tangible results — ensuring accountability
-                and long-term alignment.
-              </p>
-              <p className="mt-4 text-sm opacity-80">
-                Delivering governance that works.
-              </p>
-            </>
-          }
-        />
-
-        {/* 5. Strategic Communication */}
-        <VerticalCard
-          title="Strategic Communication Design"
-          image="/vertical5.png"
-          content={
-            <>
-              <p>
-                We craft narratives that make governance relatable — simplifying
-                complexity through design, storytelling, and citizen-focused
-                communication.
-              </p>
-              <p className="mt-4 text-sm opacity-80">
-                Because good governance deserves good storytelling.
-              </p>
-            </>
-          }
-        />
+        {/* -------------------- ROW 2 (always 2 centered on desktop) -------------------- */}
+        <div className="
+          col-span-1
+          md:col-span-2
+          lg:col-span-3
+          flex flex-col md:flex-row justify-center items-center gap-10
+        ">
+          <div className="w-full md:w-1/2 lg:w-1/3 flex justify-center">
+            <VerticalCard
+              title="Government Project Management"
+              image="/vertical4.png"
+              content={
+                <>
+                  <p>
+                    We partner with ministries and agencies to manage and execute
+                    projects that deliver tangible results — ensuring
+                    accountability and long-term alignment.
+                  </p>
+                  <p className="mt-4 text-sm opacity-80">
+                    Delivering governance that works.
+                  </p>
+                </>
+              }
+            />
+          </div>
+          <div className="w-full md:w-1/2 lg:w-1/3 flex justify-center">
+            <VerticalCard
+              title="Strategic Communication Design"
+              image="/vertical5.png"
+              content={
+                <>
+                  <p>
+                    We craft narratives that make governance relatable — simplifying
+                    complexity through design, storytelling, and citizen-focused
+                    communication.
+                  </p>
+                  <p className="mt-4 text-sm opacity-80">
+                    Because good governance deserves good storytelling.
+                  </p>
+                </>
+              }
+            />
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
 // -----------------------------------------------------------
-// CARD COMPONENT (Hover on desktop, Tap-to-Reveal on mobile)
+// CARD COMPONENT
 // -----------------------------------------------------------
 
 const VerticalCard = ({
@@ -146,7 +159,6 @@ const VerticalCard = ({
   const [active, setActive] = React.useState(false);
   const [isTouch, setIsTouch] = React.useState(false);
 
-  // Detect mobile/touch screen
   React.useEffect(() => {
     setIsTouch("ontouchstart" in window);
   }, []);
@@ -160,12 +172,10 @@ const VerticalCard = ({
       onMouseEnter={() => !isTouch && setActive(true)}
       onMouseLeave={() => !isTouch && setActive(false)}
       onClick={handleClick}
-      className="relative border border-black/20 dark:border-white/20 h-[28rem] group/canvas-card overflow-hidden cursor-pointer rounded-xl"
+      className="relative border border-black/20 dark:border-white/20 h-[28rem] group/canvas-card overflow-hidden cursor-pointer rounded-xl w-full max-w-[26rem]"
     >
-      {/* Corner Icons */}
       <CornerIcons />
 
-      {/* Image */}
       <Image
         src={image}
         alt={title}
@@ -175,7 +185,6 @@ const VerticalCard = ({
         }`}
       />
 
-      {/* Reveal Animation */}
       <AnimatePresence>
         {active && (
           <motion.div
@@ -197,7 +206,6 @@ const VerticalCard = ({
         )}
       </AnimatePresence>
 
-      {/* Text Content */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{
